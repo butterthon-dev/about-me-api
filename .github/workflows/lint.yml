@@ -1,8 +1,9 @@
 name: Linter
 
+on: push
+
 on:
-  - push
-  - pull_request:
+  pull_request:
     branches:
       - develop
       - main
