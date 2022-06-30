@@ -1,7 +1,0 @@
-runs:
-  using: "Composite"
-  steps:
-    - name: Checkout
-      uses: actions/checkout@v2
-      with:
-        ref: ${{ github.ref }}

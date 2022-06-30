@@ -14,8 +14,10 @@ jobs:
   pull_request:
     runs-on: ubuntu-latest
     steps:
-      - name: Initialize
-        uses: ./.github/actions/initialize
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          ref: ${{ github.ref }}
 
       - name: Lint
         uses: ./.github/actions/lint
