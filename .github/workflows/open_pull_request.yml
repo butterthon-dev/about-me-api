@@ -1,4 +1,4 @@
-name: Push
+name: Open pull request
 
 on:
   pull_request:
