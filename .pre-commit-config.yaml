@@ -22,4 +22,18 @@ repos:
               config/settings/dev.py|
               config/settings/prd.py
           )$
-        additional_dependencies: [pep8-naming]
+        additional_dependencies: [
+          darglint,
+          flake8,
+          flake8-bandit,
+          flake8-bugbear,
+          flake8-builtins,
+          flake8-comprehensions,
+          flake8-docstrings,
+          flake8-eradicate,
+          flake8-isort,
+          flake8-pytest-style,
+          flake8-spellcheck,
+          flakehell,
+          pep8-naming
+        ]
