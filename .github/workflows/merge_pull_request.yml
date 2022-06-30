@@ -1,0 +1,57 @@
+name: Merge pull request
+
+on:
+  pull_request:
+    branches:
+      - develop
+      - main
+    types:
+      - closed
+
+env:
+  PROJECT_ID: abount-me
+  PROJECT_NUMBER: '719512294616'
+  REGION: asia-northeast1
+  BASE_REPOGITORY_ID: about-me-repository
+  BASE_DOCKER_IMAGE_NAME: abount-me-api
+  WORKLOAD_IDENTITY_POOL: dev-workload-identity-pool
+  WORKLOAD_IDENTITY_POOL_PROVIDER: dev-workload-identity-prv
+
+jobs:
+  docker-image-build-and-push:
+    if: github.event.pull_request.merged == true
+    name: Build and Push docker image to Artifact Registry
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: read
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          ref: ${{ github.ref }}
+
+      - id: auth
+        uses: google-github-actions/auth@v0.4.0
+        with:
+          workload_identity_provider: projects/${{ env.PROJECT_NUMBER }}/locations/global/workloadIdentityPools/${{ env.WORKLOAD_IDENTITY_POOL }}/providers/${{ env.WORKLOAD_IDENTITY_POOL_PROVIDER }}
+          service_account: dev-sa-github-actions@${{ env.PROJECT_ID }}.iam.gserviceaccount.com
+
+      - name: Configure docker for artifact registry
+        run: |
+          gcloud auth configure-docker asia-northeast1-docker.pkg.dev
+
+      - name: Build docker image and push to artifact registry
+        if: github.ref == 'develop'
+        run: |
+          gcloud builds submit \
+            --tag ${{ env.REGION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/dev-${{ env.BASE_REPOGITORY_ID }}/dev-${{ env.BASE_DOCKER_IMAGE_NAME }}:${{ github.sha }}
+
+      # - name: Repository Dispatch
+      #   uses: peter-evans/repository-dispatch@v1
+      #   with:
+      #     token: ${{ secrets.REPO_ACCESS_TOKEN }} # パーソナルアクセストークンを取得して、このリポジトリのシークレットに追加
+      #     repository: butterthon-dev/dev-app-k8s # 対象のGitリポジトリ
+      #     event-type: update-yml
+      #     client-payload: '{"github_sha": "${{ github.sha }}", "ref": "${{ github.ref_name }}"}'
