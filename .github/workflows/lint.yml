@@ -20,11 +20,16 @@ jobs:
           python-version: 3.9.13
           architecture: x64
 
-      - name: Install flake8
-        run: pip install flake8
-      - name: Run flake8
-        uses: suo/flake8-github-action@releases/v1
+      - name: flake8 Lint
+        uses: py-actions/flake8@v2
         with:
-          checkName: lint   # NOTE: job名と一致させる
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          ignore: "F403"
+          max-line-length: "120"
+          exclude: |
+            (?x)^(
+                ^api/migrations/0001_initial.py|
+                api/admin.py|
+                api/tests.py|
+                config/settings/dev.py|
+                config/settings/prd.py
+            )$
