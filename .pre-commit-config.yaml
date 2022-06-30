@@ -20,7 +20,8 @@ repos:
               api/admin.py|
               api/tests.py|
               config/settings/dev.py|
-              config/settings/prd.py
+              config/settings/prd.py|
+              manage.py
           )$
         additional_dependencies: [
           darglint,
