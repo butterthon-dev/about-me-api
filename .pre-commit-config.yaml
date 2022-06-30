@@ -16,9 +16,8 @@ repos:
         ]
         exclude: |
           (?x)^(
-              ^api/migrations/0001_initial.py|
-              api/admin.py|
-              api/tests.py|
+              ^api/migrations/.*|
+              api/models/__init__.py|
               config/settings/dev.py|
               config/settings/prd.py|
               manage.py
