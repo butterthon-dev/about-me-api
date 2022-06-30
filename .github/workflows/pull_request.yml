@@ -15,7 +15,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Initialize
-        uses: ./.github/workflows/actions/initialize
+        uses: ./.github/actions/initialize
 
       - name: Lint
-        uses: ./.github/workflows/actions/lint
+        uses: ./.github/actions/lint
