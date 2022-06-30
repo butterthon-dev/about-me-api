@@ -1,0 +1,21 @@
+name: Push
+
+on:
+  pull_request:
+    branches:
+      - develop
+      - main
+    types:
+      - opened
+      - edited
+      - reopened
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+  steps:
+    - name: Initialize
+      uses: ./.github/workflows/actions/initialize
+
+    - name: Lint
+      uses: ./.github/workflows/actions/lint
