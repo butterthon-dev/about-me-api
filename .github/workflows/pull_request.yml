@@ -11,11 +11,11 @@ on:
       - reopened
 
 jobs:
-  lint:
+  pull_request:
     runs-on: ubuntu-latest
-  steps:
-    - name: Initialize
-      uses: ./.github/workflows/actions/initialize
+    steps:
+      - name: Initialize
+        uses: ./.github/workflows/actions/initialize
 
-    - name: Lint
-      uses: ./.github/workflows/actions/lint
+      - name: Lint
+        uses: ./.github/workflows/actions/lint
