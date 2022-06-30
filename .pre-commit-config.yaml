@@ -1,0 +1,25 @@
+# See https://pre-commit.com for more information
+# See https://pre-commit.com/hooks.html for more hooks
+repos:
+  - repo: https://github.com/pycqa/isort
+    rev: 5.10.1
+    hooks:
+      - id: isort
+
+  - repo: https://gitlab.com/pycqa/flake8
+    rev: 3.8.4
+    hooks:
+      - id: flake8
+        args: [
+          --max-line-length, "120",
+          --ignore, "F403"
+        ]
+        exclude: |
+          (?x)^(
+              ^api/migrations/0001_initial.py|
+              api/admin.py|
+              api/tests.py|
+              config/settings/dev.py|
+              config/settings/prd.py
+          )$
+        additional_dependencies: [pep8-naming]

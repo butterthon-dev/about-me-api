@@ -1,0 +1,32 @@
+version: "3"
+
+services:
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      DJANGO_SETTINGS_MODULE: config.settings.dev
+    ports:
+      - "8000:8000"
+    volumes:
+      - .:/src
+
+  mysql:
+    platform: linux/amd64 # M1チップ対応
+    image: mysql:8.0.26 # M1チップ対応
+    environment:
+      MYSQL_ROOT_USER: root
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: db-butterthon-blog
+      MYSQL_USER: local-user
+      MYSQL_PASSWORD: password
+    ports:
+      - "3306:3306"
+    command: --default-authentication-plugin=mysql_native_password --explicit-defaults-for-timestamp=ON --character-set-server=utf8mb4 --collation-server=utf8mb4_bin
+    volumes:
+      - mysql-data:/var/lib/mysql
+
+volumes:
+  mysql-data:
+    driver: local
