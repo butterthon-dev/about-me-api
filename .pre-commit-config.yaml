@@ -5,6 +5,10 @@ repos:
     rev: 5.10.1
     hooks:
       - id: isort
+        exclude: |
+          (?x)^(
+              ^api/migrations/.*|
+          )$
 
   - repo: https://gitlab.com/pycqa/flake8
     rev: 3.8.4
