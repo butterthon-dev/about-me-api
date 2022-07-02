@@ -1,7 +1,7 @@
-from django.http import HttpResponse
-from django.views import View
+from rest_framework.response import Response
+from rest_framework.views import APIView
 
 
-class HealthCheckView(View):
-    def get(self, request):
-        return HttpResponse('Hello World')
+class HealthCheckView(APIView):
+    def get(self, request, *args, **kwargs):
+        return Response('Healthy')
