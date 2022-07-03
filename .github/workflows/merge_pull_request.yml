@@ -48,10 +48,10 @@ jobs:
           gcloud builds submit \
             --tag ${{ env.REGION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/dev-${{ env.BASE_REPOGITORY_ID }}/dev-${{ env.BASE_DOCKER_IMAGE_NAME }}:${{ github.sha }}
 
-      # - name: Repository Dispatch
-      #   uses: peter-evans/repository-dispatch@v1
-      #   with:
-      #     token: ${{ secrets.REPO_ACCESS_TOKEN }} # パーソナルアクセストークンを取得して、このリポジトリのシークレットに追加
-      #     repository: butterthon-dev/dev-app-k8s # 対象のGitリポジトリ
-      #     event-type: update-yml
-      #     client-payload: '{"github_sha": "${{ github.sha }}", "ref": "${{ github.ref_name }}"}'
+      - name: Repository Dispatch
+        uses: peter-evans/repository-dispatch@v1
+        with:
+          token: ${{ secrets.REPO_ACCESS_TOKEN }} # パーソナルアクセストークンを取得して、このリポジトリのシークレットに追加
+          repository: butterthon-dev/about-me-k8s # 対象のGitリポジトリ
+          event-type: update-image
+          client-payload: '{"github_sha": "${{ github.sha }}", "ref": "${{ github.ref_name }}"}'
