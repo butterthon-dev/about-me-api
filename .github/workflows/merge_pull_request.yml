@@ -12,7 +12,7 @@ env:
   PROJECT_ID: abount-me
   PROJECT_NUMBER: '719512294616'
   REGION: asia-northeast1
-  BASE_REPOGITORY_ID: about-me-repository
+  BASE_REPOGITORY_ID: about-me-api-repository
   BASE_DOCKER_IMAGE_NAME: abount-me-api
   WORKLOAD_IDENTITY_POOL: dev-workload-identity-pool
   WORKLOAD_IDENTITY_POOL_PROVIDER: dev-workload-identity-prv
@@ -54,4 +54,4 @@ jobs:
           token: ${{ secrets.REPO_ACCESS_TOKEN }} # パーソナルアクセストークンを取得して、このリポジトリのシークレットに追加
           repository: butterthon-dev/about-me-k8s # 対象のGitリポジトリ
           event-type: update-image
-          client-payload: '{"github_sha": "${{ github.sha }}", "ref": "${{ github.ref_name }}"}'
+          client-payload: '{"github_sha": "${{ github.sha }}", "ref": "${{ github.ref }}"}'
